@@ -1,60 +1,56 @@
-<?php
-// Datos de conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "12345";
-$dbname = "names";
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Procesar el formulario de entrada de nombre
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $sql = "INSERT INTO names (name) VALUES ('$name')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Nombre guardado en la base de datos.";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-// Consultar los nombres guardados en la base de datos
-$sql = "SELECT * FROM names";
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guardar Nombre en Base de Datos</title>
+    <title>Página Básica en PHP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        p {
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Guardar Nombre en Base de Datos</h1>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        Nombre: <input type="text" name="name">
-        <input type="submit" name="submit" value="Guardar">
-    </form>
-
-    <h2>Nombres Guardados:</h2>
-    <?php
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            echo "- " . $row["name"] . "<br>";
-        }
-    } else {
-        echo "No se han guardado nombres.";
-    }
-    ?>
-
+    <div class="container">
+        <h1>Bienvenido a mi Página Básica en PHP</h1>
+        <p>Esta es una página web sencilla creada utilizando PHP, sin necesidad de una base de datos.</p>
+        <p>Aquí puedes encontrar información básica sobre mi sitio web.</p>
+        <a href="#" class="button">Haz clic aquí</a>
+    </div>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
